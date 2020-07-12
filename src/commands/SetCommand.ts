@@ -1,16 +1,10 @@
-import { ICommand } from '../interfaces/ICommand';
 import { IMessage } from '../interfaces/IMessage';
 import { ICache } from '../interfaces/ICache';
-import { cleanText } from '../lib/utils';
 import { StoreCommand } from './StoreCommand';
 
-export class SetCommand extends StoreCommand implements ICommand {
+export class SetCommand extends StoreCommand {
   constructor(line: string, messageParser: IMessage, cache: ICache) {
     super(line, messageParser, cache);
-  }
-
-  doSave(key: string, item: object): void {
-    this.cache.add(key, item);
   }
 }
 

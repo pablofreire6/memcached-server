@@ -15,18 +15,14 @@ export class GetCommand implements ICommand {
   }
 
   run() {
-    const [command, key] = this.line.split(' ');
-    // const [command, ...keys] = this.line.split(' ');
-    // response = keys.forEach((key) => this.cache.get(cleanText(key)))
+    const [command, ...keys] = this.line.split(' ');
+    const result = [];
+    keys.forEach((key) => {
+      if (this.cache.has(cleanText(key))) {
+        result.push(this.cache.get(cleanText(key)));
+      }
+    });
 
-    const keyToSearch = cleanText(key);
-
-    if (!this.cache.has(keyToSearch)) {
-      return '';
-    }
-
-    const response = this.cache.get(keyToSearch);
-
-    return this.messageParser.parseGet(response);
+    return this.messageParser.parseGet(result);
   }
 }

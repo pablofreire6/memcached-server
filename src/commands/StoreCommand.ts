@@ -1,6 +1,7 @@
 import { IMessage } from '../interfaces/IMessage';
 import { ICommand } from '../interfaces/ICommand';
 import { ICache } from '../interfaces/ICache';
+import { NOTSTORED } from '../lib/ErrorMessage';
 import { cleanText } from '../lib/utils';
 
 export abstract class StoreCommand implements ICommand {
@@ -39,15 +40,24 @@ export abstract class StoreCommand implements ICommand {
       return 'continue';
     }
 
+    if (!this.isValid(key, item)) {
+      throw new Error(NOTSTORED);
+    }
+
     this.doSave(key, item);
 
-    return this.messageParser.parseSet('set command');
+    return this.messageParser.parseSet(['set command']);
   }
 
   updateMessage(message: string): void {
     this.message = cleanText(message);
   }
 
-  // needs to be overriden
-  doSave(key: string, item: object) {}
+  doSave(key: string, item: object) {
+    this.cache.add(key, item);
+  }
+
+  isValid(key: string, item: object): boolean {
+    return true;
+  }
 }

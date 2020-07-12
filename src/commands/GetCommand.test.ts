@@ -13,7 +13,7 @@ describe('get text for a given key', () => {
     const response = getCommand.run();
 
     // Assert
-    expect(response).toBe('VALUE get 0 5 [<cas unique>]\r\nhello\r\nEND\r\n');
+    expect(response).toBe('VALUE 0 5 [<cas unique>]\r\nhello\r\nEND\r\n');
   });
 
   it('should return empty if the key doesnt exist in cache', () => {
@@ -24,7 +24,7 @@ describe('get text for a given key', () => {
     const response = getCommand.run();
 
     // Assert
-    expect(response).toBe('');
+    expect(response).toBe('END\r\n');
   });
 
   it('should return text for two given keys that exists in cache', () => {});

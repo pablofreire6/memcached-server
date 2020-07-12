@@ -3,6 +3,7 @@ import { Message } from '../lib/Message';
 import { GetCommand } from './GetCommand';
 import { SetCommand } from './SetCommand';
 import { AddCommand } from './AddCommand';
+import { ReplaceCommand } from './ReplaceCommand';
 import { ICommand } from '../interfaces/ICommand';
 import { NONEXISTINGCOMMAND } from '../lib/ErrorMessage';
 
@@ -10,6 +11,7 @@ export enum CommandType {
   get = 1,
   set,
   add,
+  replace,
 }
 
 /**
@@ -28,6 +30,9 @@ export default class CommandFactory {
         break;
       case CommandType.add:
         command = new AddCommand(line, new Message(), Cache.getInstance());
+        break;
+      case CommandType.replace:
+        command = new ReplaceCommand(line, new Message(), Cache.getInstance());
         break;
 
       default:
