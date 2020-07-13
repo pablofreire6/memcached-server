@@ -1,6 +1,11 @@
+import { SetCommand } from './SetCommand';
+import { Message } from '../lib/Message';
+import { Cache } from '../lib/Cache';
+
 describe('Store the data', () => {
   it('should store the data given and return STORED', () => {
     // Arrange
+    // const setCommand = new SetCommand('set apple 0 900')
     // create instance of SetCommand
     // prepare item that successfully set
     // Act
