@@ -1,7 +1,7 @@
 import { IMessage } from '../interfaces/IMessage';
 import { ICommand } from '../interfaces/ICommand';
 import { ICache } from '../interfaces/ICache';
-import { NOTSTORED, CLIENTERROR, ERROR } from '../lib/ErrorMessage';
+import { NOTSTORED, CLIENTERROR, ERROR, CLIENTERRORBADFORMAT } from '../lib/ErrorMessage';
 import { cleanText } from '../lib/utils';
 import { Item } from '../lib/Item';
 
@@ -32,6 +32,10 @@ export abstract class StoreCommand implements ICommand {
       return 'continue';
     } else if (parseInt(cleanText(bytes), 10) !== this.message.length) {
       throw new Error(CLIENTERROR);
+    }
+
+    if (isNaN(parseInt(flags, 10)) || isNaN(parseInt(cleanText(bytes), 10)) || isNaN(parseInt(exptime, 10))) {
+      throw new Error(CLIENTERRORBADFORMAT);
     }
 
     let item = new Item();

@@ -20,7 +20,14 @@ export class Cache implements ICache {
   }
 
   get(key: string) {
-    return this.cache.get(key);
+    const item = this.cache.get(key);
+    const currentTime = new Date().getTime();
+
+    if (item.getExpirationTime() < currentTime) {
+      return null;
+    }
+
+    return item;
   }
 
   add(key: string, item: IItem) {

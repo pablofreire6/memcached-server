@@ -22,7 +22,8 @@ export class Item implements IItem {
   }
 
   setExpirationTime(exptime: number): this {
-    this.expirationTime = exptime;
+    var time = new Date().getTime() + exptime * 1000;
+    this.expirationTime = time;
 
     return this;
   }

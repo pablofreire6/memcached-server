@@ -25,7 +25,10 @@ export class GetCommand implements ICommand {
     keys.forEach((key) => {
       const keyText = cleanText(key);
       if (this.cache.has(keyText)) {
-        result.push(this.cache.get(keyText));
+        const item = this.cache.get(keyText);
+        if (item) {
+          result.push(item);
+        }
       }
     });
 

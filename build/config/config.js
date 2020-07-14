@@ -1,9 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DEBUG = exports.PORT = void 0;
 // =========================================
 // Define PORT to be used
 // =========================================
-export let PORT: number = parseInt(process.env.PORT) || 9000;
-
+exports.PORT = parseInt(process.env.PORT) || 9000;
 // =========================================
 // Use log Messages to debug
 // =========================================
-export let DEBUG: boolean = false;
+exports.DEBUG = false;
