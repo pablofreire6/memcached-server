@@ -43,7 +43,7 @@ We can connect using any Memcached client or command line with telnet or nc
 nc localhost 9000
 ```
 
-### Storage Command
+### Storage Commands
 Sample of basic storage operations supported
 
 > set data will store the given data with the given key
@@ -81,7 +81,13 @@ before
 
 ```
 
-> Read data
+## Retrieval Commands
+> Read the data for the given key
 ```
 get foo
+```
+
+> Read data for the list of keys send after the command separated by whitespace
+```
+get foo bar
 ```
