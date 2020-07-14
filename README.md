@@ -5,7 +5,7 @@ The idea is to build a Memcached Server with basic commands that can be used by 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Clone
-Clone this repo to your local machine 
+Clone this repo to your local machine `https://github.com/pablofreire6/memcached-server.git`
 
 ### Setup
 > Install node dependencies first
