@@ -17,6 +17,10 @@ npm install
 ```
 npm start
 ```
+> Run in a different port
+```
+PORT=8000 npm start
+```
 
 ## Tests
 The set of tests was built using Jest that also includes the tools to get the coverage
