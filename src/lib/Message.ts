@@ -1,17 +1,20 @@
 import { IMessage } from '../interfaces/IMessage';
+import { IItem } from '../interfaces/IItem';
 
 export class Message implements IMessage {
-  parseGet(data: any) {
+  parseGet(data: IItem[]) {
     var result = '';
     for (let i = 0; i < data.length; i++) {
-      result += `VALUE ${data[i].flags} ${data[i].bytes} [<cas unique>]\r\n${data[i].data}\r\n`;
+      // [<cas unique>]
+      const item = data[i];
+      result += `VALUE ${item.getKey()} ${item.getFlags()} ${item.getBytes()}\r\n${item.getMessage()}\r\n`;
     }
 
     result += this.closeMessage();
     return result;
   }
 
-  parseSet(data: any) {
+  parseSet(data: any = 'stored') {
     return `STORED\r\n`;
   }
 

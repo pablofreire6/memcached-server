@@ -1,4 +1,5 @@
 import { ICache } from '../interfaces/ICache';
+import { IItem } from '../interfaces/IItem';
 
 export class Cache implements ICache {
   private static instance: Cache;
@@ -22,7 +23,7 @@ export class Cache implements ICache {
     return this.cache.get(key);
   }
 
-  add(key, item) {
+  add(key: string, item: IItem) {
     this.cache.set(key, item);
   }
 
@@ -30,5 +31,7 @@ export class Cache implements ICache {
     this.cache.delete(key);
   }
 
-  update(item, content) {}
+  update(key, item) {
+    this.cache.set(key, item);
+  }
 }

@@ -10,6 +10,9 @@ describe('Connection actions handler', () => {
     conn = {
       on: (action, callback) => emitter.on(action, callback),
       write: jest.fn(),
+      address: jest.fn().mockImplementation(() => ({
+        address: '127.0.0',
+      })),
     };
   });
 
@@ -18,7 +21,7 @@ describe('Connection actions handler', () => {
 
     emitter.emit('data', 'get special item');
 
-    expect(conn.write).toBeCalledTimes(1);
+    expect(conn.write).toBeCalledTimes(2);
   });
 
   it('should listen on error received', () => {
@@ -26,7 +29,7 @@ describe('Connection actions handler', () => {
 
     emitter.emit('error', { message: 'error message' });
 
-    expect(conn.write).toBeCalledTimes(1);
+    expect(conn.write).toBeCalledTimes(2);
   });
 
   it('should listen on close connection', () => {
@@ -34,6 +37,6 @@ describe('Connection actions handler', () => {
 
     emitter.emit('close');
 
-    expect(conn.write).toBeCalledTimes(1);
+    expect(conn.write).toBeCalledTimes(2);
   });
 });

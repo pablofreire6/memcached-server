@@ -1,4 +1,4 @@
-import net from 'net';
+import net, { AddressInfo } from 'net';
 import CommandFactory, { CommandType } from '../commands/CommandFactory';
 
 export default class Connection {
@@ -7,6 +7,9 @@ export default class Connection {
 
   constructor(socket: net.Socket) {
     this.socket = socket;
+
+    const { address } = socket.address() as AddressInfo;
+    this.socket.write(`Connected to ${address} \r\n`);
 
     this.socket.on('data', this.onData.bind(this));
     this.socket.on('close', this.onClose.bind(this));
@@ -26,6 +29,7 @@ export default class Connection {
     try {
       result = this.handleCommand(data);
     } catch (err) {
+      this.commandInstance = null;
       result = err.message;
     }
 
@@ -58,16 +62,12 @@ export default class Connection {
     const line = Buffer.from(data).toString();
     const options = line.split(' ');
 
-    console.log('------options--------');
-    console.log(options);
-    console.log('---------------------');
-
     if (!this.commandInstance) {
       const [cmd] = options;
       const command: CommandType | undefined = (<any>CommandType)[cmd];
 
       const commandFactory = new CommandFactory();
-      this.commandInstance = commandFactory.create(command, line);
+      this.commandInstance = commandFactory.create(command, options);
     } else {
       this.commandInstance.updateMessage(line);
     }

@@ -5,22 +5,47 @@ import { Cache } from '../lib/Cache';
 describe('Store the data', () => {
   it('should store the data given and return STORED', () => {
     // Arrange
-    // const setCommand = new SetCommand('set apple 0 900')
-    // create instance of SetCommand
-    // prepare item that successfully set
+    const data = 'set apple 0 900 5'.split(' ');
+    const setCommand = new SetCommand(data, new Message(), Cache.getInstance());
+    setCommand.updateMessage('apple\r\n');
+
     // Act
-    // call run method
+    const result = setCommand.run();
+
     // Assert
-    // confirm the ansewer to be STORED
+    expect(result).toBe('STORED\r\n');
   });
 
   it('should return an error when not valid data is sent', () => {
     // Arrange
-    // create instance of SetCommand
-    // prepare item with invalid data
+    const data = 'set orange 0 900 3'.split(' ');
+    const setCommand = new SetCommand(data, new Message(), Cache.getInstance());
+    setCommand.updateMessage('orange\r\n');
+
     // Act
-    // call run method
+    expect(() => {
+      setCommand.run();
+    }).toThrowError('CLIENT_ERROR bad data\r\nERROR\r\n');
+  });
+
+  it('should return a continue text when waiting for message', () => {
+    // Arrange
+    const data = 'set apple 0 900 5'.split(' ');
+    const setCommand = new SetCommand(data, new Message(), Cache.getInstance());
+
+    // Act
+    const result = setCommand.run();
+
     // Assert
-    // Error should be returned
+    expect(result).toBe('continue');
+
+    // Act
+    setCommand.updateMessage('apple\r\n');
+
+    // Act
+    const newResult = setCommand.run();
+
+    // Assert
+    expect(newResult).toBe('STORED\r\n');
   });
 });
