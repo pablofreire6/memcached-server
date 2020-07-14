@@ -17,7 +17,8 @@ class Cache {
     get(key) {
         const item = this.cache.get(key);
         const currentTime = new Date().getTime();
-        if (item.getExpirationTime() < currentTime) {
+        const expirationTime = item.getExpirationTime();
+        if (expirationTime !== 0 && expirationTime < currentTime) {
             return null;
         }
         return item;

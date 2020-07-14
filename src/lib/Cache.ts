@@ -3,7 +3,7 @@ import { IItem } from '../interfaces/IItem';
 
 export class Cache implements ICache {
   private static instance: Cache;
-  private cache = new Map();
+  private cache = new Map<string, IItem>();
 
   private constructor() {}
 
@@ -19,11 +19,12 @@ export class Cache implements ICache {
     return this.cache.has(key);
   }
 
-  get(key: string) {
-    const item = this.cache.get(key);
+  get(key: string): IItem | null {
+    const item: IItem = this.cache.get(key);
     const currentTime = new Date().getTime();
+    const expirationTime = item.getExpirationTime();
 
-    if (item.getExpirationTime() < currentTime) {
+    if (expirationTime !== 0 && expirationTime < currentTime) {
       return null;
     }
 
@@ -34,11 +35,11 @@ export class Cache implements ICache {
     this.cache.set(key, item);
   }
 
-  remove(key) {
+  remove(key: string) {
     this.cache.delete(key);
   }
 
-  update(key, item) {
+  update(key: string, item: IItem) {
     this.cache.set(key, item);
   }
 }

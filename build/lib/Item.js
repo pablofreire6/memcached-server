@@ -12,8 +12,11 @@ class Item {
         return this;
     }
     setExpirationTime(exptime) {
-        var time = new Date().getTime() + exptime * 1000;
-        this.expirationTime = time;
+        let newTime = exptime;
+        if (newTime > 0) {
+            newTime = new Date().getTime() + newTime * 1000;
+        }
+        this.expirationTime = newTime;
         return this;
     }
     setBytes(bytes) {
