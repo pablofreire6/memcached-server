@@ -43,12 +43,44 @@ We can connect using any Memcached client or command line with telnet or nc
 nc localhost 9000
 ```
 
-> Store data
+### Storage Command
+Sample of basic storage operations supported
+
+> set data will store the given data with the given key
 ```
 set foo 0 900 5
 hello
 
 ```
+
+> add data will only add if server already doesnt have data for the given key
+```
+add bar 0 900 4
+test
+
+```
+
+> replace data will only store the data if the given key already exists
+```
+replace foo 0 900 7
+updated
+
+```
+
+> append data will add the data to an existing key after existing data
+```
+append foo 0 900 5
+after
+
+```
+
+> prepend data will add the data to an existing key before existing data
+```
+prepend foo 0 900 6
+before
+
+```
+
 > Read data
 ```
 get foo
