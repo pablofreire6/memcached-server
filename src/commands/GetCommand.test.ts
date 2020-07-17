@@ -5,9 +5,19 @@ import { Item } from '../lib/Item';
 
 beforeAll(() => {
   let item1 = new Item();
-  item1.setKey('apple').setFlags(0).setExpirationTime(60).setBytes(5).setMessage('apple');
+  item1.setKey('apple');
+  item1.setFlags(0);
+  item1.setExpirationTime(60);
+  item1.setBytes(5);
+  item1.setMessage('apple');
+
   let item2 = new Item();
-  item2.setKey('banana').setFlags(0).setExpirationTime(60).setBytes(6).setMessage('banana');
+  item2.setKey('banana');
+  item2.setFlags(0);
+  item2.setExpirationTime(60);
+  item2.setBytes(6);
+  item2.setMessage('banana');
+
   Cache.getInstance().add('apple', item1);
   Cache.getInstance().add('banana', item2);
 });

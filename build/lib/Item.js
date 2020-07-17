@@ -5,11 +5,9 @@ class Item {
     constructor() { }
     setKey(key) {
         this.key = key;
-        return this;
     }
     setFlags(flags) {
         this.flags = flags;
-        return this;
     }
     setExpirationTime(exptime) {
         let newTime = exptime;
@@ -17,15 +15,15 @@ class Item {
             newTime = new Date().getTime() + newTime * 1000;
         }
         this.expirationTime = newTime;
-        return this;
     }
     setBytes(bytes) {
         this.bytes = bytes;
-        return this;
     }
     setMessage(message) {
         this.message = message;
-        return this;
+    }
+    setCasId(casId) {
+        this.casId = casId;
     }
     getKey() {
         return this.key;
@@ -41,6 +39,9 @@ class Item {
     }
     getMessage() {
         return this.message;
+    }
+    getCasId() {
+        return this.casId;
     }
 }
 exports.Item = Item;

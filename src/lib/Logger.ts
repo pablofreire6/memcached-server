@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { DEBUG } from '../config/config';
 
 export class Logger {

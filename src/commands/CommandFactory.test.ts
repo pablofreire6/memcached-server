@@ -7,13 +7,18 @@ import { PrependCommand } from './PrependCommand';
 import { CasCommand } from './CasCommand';
 import { AppendCommand } from './AppendCommand';
 
+function splitContent(text) {
+  return text.split(' ');
+}
+
 describe('Create an instance of the command class requested', () => {
   it('should return an instance of GetCommand class', () => {
     // Arrange
     const commandFactory = new CommandFactory();
 
     // Act
-    const getCommand = commandFactory.create(CommandType.get, 'get apple\r\n');
+    const data = splitContent('get apple\r\n');
+    const getCommand = commandFactory.create(CommandType.get, data);
 
     // Assert
     expect(getCommand instanceof GetCommand).toBeTruthy();
@@ -24,7 +29,8 @@ describe('Create an instance of the command class requested', () => {
     const commandFactory = new CommandFactory();
 
     // Act
-    const setCommand = commandFactory.create(CommandType.set, 'set apple 0 900 4\r\n');
+    const data = splitContent('set apple 0 900 4\r\n');
+    const setCommand = commandFactory.create(CommandType.set, data);
 
     // Assert
     expect(setCommand instanceof SetCommand).toBeTruthy();
@@ -35,7 +41,8 @@ describe('Create an instance of the command class requested', () => {
     const commandFactory = new CommandFactory();
 
     // Act
-    const addCommand = commandFactory.create(CommandType.add, 'add apple 0 900 4\r\n');
+    const data = splitContent('add apple 0 900 4\r\n');
+    const addCommand = commandFactory.create(CommandType.add, data);
 
     // Assert
     expect(addCommand instanceof AddCommand).toBeTruthy();
@@ -46,7 +53,8 @@ describe('Create an instance of the command class requested', () => {
     const commandFactory = new CommandFactory();
 
     // Act
-    const replaceCommand = commandFactory.create(CommandType.replace, 'replace apple 0 900 4\r\n');
+    const data = splitContent('replace apple 0 900 4\r\n');
+    const replaceCommand = commandFactory.create(CommandType.replace, data);
 
     // Assert
     expect(replaceCommand instanceof ReplaceCommand).toBeTruthy();
@@ -57,7 +65,8 @@ describe('Create an instance of the command class requested', () => {
     const commandFactory = new CommandFactory();
 
     // Act
-    const appendCommand = commandFactory.create(CommandType.append, 'append apple 0 900 4\r\n');
+    const data = splitContent('append apple 0 900 4\r\n');
+    const appendCommand = commandFactory.create(CommandType.append, data);
 
     // Assert
     expect(appendCommand instanceof AppendCommand).toBeTruthy();
@@ -68,7 +77,8 @@ describe('Create an instance of the command class requested', () => {
     const commandFactory = new CommandFactory();
 
     // Act
-    const prependCommand = commandFactory.create(CommandType.prepend, 'prepend apple 0 900 4\r\n');
+    const data = splitContent('prepend apple 0 900 4\r\n');
+    const prependCommand = commandFactory.create(CommandType.prepend, data);
 
     // Assert
     expect(prependCommand instanceof PrependCommand).toBeTruthy();
@@ -79,7 +89,8 @@ describe('Create an instance of the command class requested', () => {
     const commandFactory = new CommandFactory();
 
     // Act
-    const casCommand = commandFactory.create(CommandType.cas, 'cas apple 0 900 4\r\n');
+    const data = splitContent('cas apple 0 900 4\r\n');
+    const casCommand = commandFactory.create(CommandType.cas, data);
 
     // Assert
     expect(casCommand instanceof CasCommand).toBeTruthy();

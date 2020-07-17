@@ -6,22 +6,19 @@ export class Item implements IItem {
   private expirationTime: number;
   private bytes: number;
   private message: string;
+  private casId: string;
 
   constructor() {}
 
-  setKey(key: string): this {
+  setKey(key: string): void {
     this.key = key;
-
-    return this;
   }
 
-  setFlags(flags: number): this {
+  setFlags(flags: number): void {
     this.flags = flags;
-
-    return this;
   }
 
-  setExpirationTime(exptime: number): this {
+  setExpirationTime(exptime: number): void {
     let newTime = exptime;
 
     if (newTime > 0) {
@@ -29,39 +26,41 @@ export class Item implements IItem {
     }
 
     this.expirationTime = newTime;
-
-    return this;
   }
 
-  setBytes(bytes: number): this {
+  setBytes(bytes: number): void {
     this.bytes = bytes;
-
-    return this;
   }
 
-  setMessage(message: string): this {
+  setMessage(message: string): void {
     this.message = message;
-
-    return this;
   }
 
-  getKey() {
+  setCasId(casId: string) {
+    this.casId = casId;
+  }
+
+  getKey(): string {
     return this.key;
   }
 
-  getFlags() {
+  getFlags(): number {
     return this.flags;
   }
 
-  getExpirationTime() {
+  getExpirationTime(): number {
     return this.expirationTime;
   }
 
-  getBytes() {
+  getBytes(): number {
     return this.bytes;
   }
 
-  getMessage() {
+  getMessage(): string {
     return this.message;
+  }
+
+  getCasId() {
+    return this.casId;
   }
 }

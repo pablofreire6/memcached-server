@@ -28,16 +28,15 @@ describe('Store the data', () => {
     }).toThrowError('CLIENT_ERROR bad data\r\nERROR\r\n');
   });
 
-  it('should return a continue text when waiting for message', () => {
+  it('should throw a continue error to keep waiting for missing message', () => {
     // Arrange
     const data = 'set apple 0 900 5'.split(' ');
     const setCommand = new SetCommand(data, new Message(), Cache.getInstance());
 
-    // Act
-    const result = setCommand.run();
-
     // Assert
-    expect(result).toBe('continue');
+    expect(() => {
+      setCommand.run();
+    }).toThrowError('CONTINUE');
 
     // Act
     setCommand.updateMessage('apple\r\n');
@@ -47,5 +46,27 @@ describe('Store the data', () => {
 
     // Assert
     expect(newResult).toBe('STORED\r\n');
+  });
+
+  it('should throw an error when set is call with less parameters', () => {
+    // Arrange
+    const data = 'set apple 0 900'.split(' ');
+    const setCommand = new SetCommand(data, new Message(), Cache.getInstance());
+
+    // Assert
+    expect(() => {
+      setCommand.run();
+    }).toThrowError('ERROR\r\n');
+  });
+
+  it('should throw an error when set is called with bad formatted parameters', () => {
+    // Arrange
+    const data = 'set apple a 900 5'.split(' ');
+    const setCommand = new SetCommand(data, new Message(), Cache.getInstance());
+
+    // Assert
+    expect(() => {
+      setCommand.run();
+    }).toThrowError('CLIENT_ERROR bad command line format\r\nERROR\r\n');
   });
 });

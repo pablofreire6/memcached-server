@@ -1,9 +1,10 @@
-import net from 'net';
+import net, { AddressInfo } from 'net';
 import Server from './Server';
+import { PORT } from '../config/config';
 
 let server;
 
-afterAll(() => {
+afterEach(() => {
   if (server) {
     server.stop();
   }
@@ -18,25 +19,10 @@ describe('connection to tcp server', () => {
     expect(result).toContain('listen to');
   });
 
-  it('should accept a connection to the server', () => {
-    // start a server
-    // create a client
-    // connect to the server
-    // verify active connections
-  });
+  it('should accept a connection to the server', () => {});
 
   it('should close a connection created', () => {
     //connect to server
     //close the connection
   });
 });
-
-/*
-const client = new net.Socket();
-
-    // Act
-    client.connect({
-      port: process.env.PORT,
-      host: "localhost",
-    });
-*/

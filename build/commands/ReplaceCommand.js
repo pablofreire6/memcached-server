@@ -6,7 +6,14 @@ class ReplaceCommand extends StoreCommand_1.StoreCommand {
     constructor(line, messageParser, cache) {
         super(line, messageParser, cache);
     }
-    isValid(key, item) {
+    /**
+     * Will only store the data if item with the given key
+     * already exists in cache
+     *
+     * @param key string
+     * @param item IItem
+     */
+    isValidItem(key, item) {
         return this.cache.has(key);
     }
 }

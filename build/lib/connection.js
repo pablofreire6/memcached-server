@@ -20,7 +20,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandFactory_1 = __importStar(require("../commands/CommandFactory"));
+const ErrorMessage_1 = require("../lib/ErrorMessage");
 class Connection {
+    /**
+     * Create an instance of a client connection
+     * set the listeners that will be emitted by the socket
+     *
+     * @param socket
+     */
     constructor(socket) {
         this.commandInstance = null;
         this.socket = socket;
@@ -43,11 +50,13 @@ class Connection {
             result = this.handleCommand(data);
         }
         catch (err) {
-            this.commandInstance = null;
-            result = err.message;
-        }
-        if (result === 'continue') {
-            return;
+            if (err.message === ErrorMessage_1.CONTINUE) {
+                return;
+            }
+            else {
+                this.commandInstance = null;
+                result = err.message;
+            }
         }
         this.socket.write(result);
     }

@@ -5,7 +5,11 @@ import { Cache } from '../lib/Cache';
 
 beforeAll(() => {
   let item1 = new Item();
-  item1.setKey('apple').setFlags(0).setExpirationTime(60).setBytes(5).setMessage('apple');
+  item1.setKey('apple');
+  item1.setFlags(0);
+  item1.setExpirationTime(60);
+  item1.setBytes(5);
+  item1.setMessage('apple');
 
   Cache.getInstance().add('apple', item1);
 });
@@ -14,17 +18,25 @@ describe('Replace the data', () => {
   it('should replace the data with a key that exists and return STORED', () => {
     // Arrange
     const data = 'replace apple 0 900 7'.split(' ');
-    const addCommand = new ReplaceCommand(data, new Message(), Cache.getInstance());
-    addCommand.updateMessage('updated\r\n');
+    const replaceCommand = new ReplaceCommand(data, new Message(), Cache.getInstance());
+    replaceCommand.updateMessage('updated\r\n');
 
     // Act
-    const result = addCommand.run();
+    const result = replaceCommand.run();
 
     // Assert
     expect(result).toBe('STORED\r\n');
   });
 
-  it('should return an error when add data to a key that alrady exists', () => {});
+  it('should return an error when replace data to a key that doesnt exists', () => {
+    // Arrange
+    const data = 'replace banana 0 900 7'.split(' ');
+    const replaceCommand = new ReplaceCommand(data, new Message(), Cache.getInstance());
+    replaceCommand.updateMessage('updated\r\n');
 
-  it('should return a continue text when waiting for message', () => {});
+    // Act
+    expect(() => {
+      replaceCommand.run();
+    }).toThrowError('NOT_STORED\r\n');
+  });
 });

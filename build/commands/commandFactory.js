@@ -11,6 +11,7 @@ const ReplaceCommand_1 = require("./ReplaceCommand");
 const ErrorMessage_1 = require("../lib/ErrorMessage");
 const AppendCommand_1 = require("./AppendCommand");
 const PrependCommand_1 = require("./PrependCommand");
+const GetsCommand_1 = require("./GetsCommand");
 var CommandType;
 (function (CommandType) {
     CommandType[CommandType["get"] = 1] = "get";
@@ -23,15 +24,25 @@ var CommandType;
     CommandType[CommandType["cas"] = 8] = "cas";
 })(CommandType = exports.CommandType || (exports.CommandType = {}));
 /**
- * Factory class to create the concrete command instance
+ * Factory class to create the concrete command class instance
  */
 class CommandFactory {
+    /**
+     * Create a concrete class instance for the given command
+     *
+     * @param type CommandType
+     * @param line string[]
+     *
+     * @return Command class instance
+     */
     create(type, line) {
         let command;
         switch (type) {
             case CommandType.get:
-            case CommandType.gets:
                 command = new GetCommand_1.GetCommand(line, new Message_1.Message(), Cache_1.Cache.getInstance());
+                break;
+            case CommandType.gets:
+                command = new GetsCommand_1.GetsCommand(line, new Message_1.Message(), Cache_1.Cache.getInstance());
                 break;
             case CommandType.set:
                 command = new SetCommand_1.SetCommand(line, new Message_1.Message(), Cache_1.Cache.getInstance());

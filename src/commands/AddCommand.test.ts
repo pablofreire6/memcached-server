@@ -5,7 +5,11 @@ import { Cache } from '../lib/Cache';
 
 beforeAll(() => {
   let item1 = new Item();
-  item1.setKey('apple').setFlags(0).setExpirationTime(60).setBytes(5).setMessage('apple');
+  item1.setKey('apple');
+  item1.setFlags(0);
+  item1.setExpirationTime(60);
+  item1.setBytes(5);
+  item1.setMessage('apple');
 
   Cache.getInstance().add('apple', item1);
 });

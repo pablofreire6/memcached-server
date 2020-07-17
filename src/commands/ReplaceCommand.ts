@@ -7,7 +7,14 @@ export class ReplaceCommand extends StoreCommand {
     super(line, messageParser, cache);
   }
 
-  isValid(key: string, item: object): boolean {
+  /**
+   * Will only store the data if item with the given key
+   * already exists in cache
+   *
+   * @param key string
+   * @param item IItem
+   */
+  isValidItem(key: string, item: object): boolean {
     return this.cache.has(key);
   }
 }

@@ -1,10 +1,17 @@
 import net, { AddressInfo } from 'net';
 import CommandFactory, { CommandType } from '../commands/CommandFactory';
+import { CONTINUE } from '../lib/ErrorMessage';
 
 export default class Connection {
   private socket: net.Socket;
   private commandInstance: any = null;
 
+  /**
+   * Create an instance of a client connection
+   * set the listeners that will be emitted by the socket
+   *
+   * @param socket
+   */
   constructor(socket: net.Socket) {
     this.socket = socket;
 
@@ -29,12 +36,12 @@ export default class Connection {
     try {
       result = this.handleCommand(data);
     } catch (err) {
-      this.commandInstance = null;
-      result = err.message;
-    }
-
-    if (result === 'continue') {
-      return;
+      if (err.message === CONTINUE) {
+        return;
+      } else {
+        this.commandInstance = null;
+        result = err.message;
+      }
     }
 
     this.socket.write(result);

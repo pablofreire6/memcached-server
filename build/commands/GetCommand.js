@@ -15,17 +15,27 @@ class GetCommand {
      */
     run() {
         const [command, ...keys] = this.line;
+        const result = this.findByKeys(keys);
+        return this.messageParser.parseGet(result);
+    }
+    /**
+     * Given a list of keys it will return all the items found for them
+     *
+     * @param keys string[]
+     */
+    findByKeys(keys) {
         const result = [];
         keys.forEach((key) => {
             const keyText = utils_1.cleanText(key);
             if (this.cache.has(keyText)) {
                 const item = this.cache.get(keyText);
                 if (item) {
+                    // console.log('item', JSON.stringify(item));
                     result.push(item);
                 }
             }
         });
-        return this.messageParser.parseGet(result);
+        return result;
     }
 }
 exports.GetCommand = GetCommand;
