@@ -28,8 +28,11 @@ class AppendCommand extends StoreCommand_1.StoreCommand {
         const [command, key] = this.line;
         const item = this.cache.get(utils_1.cleanText(key));
         const newMessage = item.getMessage() + message;
-        this.message = utils_1.cleanText(newMessage);
+        this.message = this.getMessageUpdated(message, item);
         this.updateBytes(this.message.length.toString());
+    }
+    getMessageUpdated(message, item) {
+        return item.getMessage() + utils_1.cleanText(message);
     }
 }
 exports.AppendCommand = AppendCommand;

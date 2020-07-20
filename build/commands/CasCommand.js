@@ -15,6 +15,9 @@ class CasCommand extends StoreCommand_1.StoreCommand {
         super.validateLine();
         const [command, key, flags, exptime, bytes, casId] = this.line;
         let item = this.cache.get(key);
+        if (!item) {
+            throw new Error('NOT_FOUND\r\n');
+        }
         if (item && parseInt(casId, 10) !== item.getCasId()) {
             throw new Error('EXISTS\r\n');
         }

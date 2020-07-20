@@ -1,9 +1,9 @@
 import { IMessage } from '../interfaces/IMessage';
 import { ICache } from '../interfaces/ICache';
-import { StoreCommand } from './StoreCommand';
 import { cleanText } from '../lib/utils';
+import { AppendCommand } from './AppendCommand';
 
-export class PrependCommand extends StoreCommand {
+export class PrependCommand extends AppendCommand {
   constructor(line: string[], messageParser: IMessage, cache: ICache) {
     super(line, messageParser, cache);
   }
@@ -12,18 +12,7 @@ export class PrependCommand extends StoreCommand {
     return this.cache.has(key);
   }
 
-  /**
-   * Update the existing data in cache with the new sent data
-   * added to the beginning
-   *
-   * @param message string
-   */
-  updateMessage(message: string) {
-    const [command, key] = this.line;
-    const item = this.cache.get(cleanText(key));
-
-    const newMessage = message + item.getMessage();
-    this.message = cleanText(newMessage);
-    this.updateBytes(this.message.length.toString());
+  getMessageUpdated(message: string, item) {
+    return cleanText(message) + item.getMessage();
   }
 }

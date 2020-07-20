@@ -18,6 +18,13 @@ class GetCommand {
         const result = this.findByKeys(keys);
         return this.parseMessage(result);
     }
+    /**
+     * Get parsed result for "get" command that will be sent to client
+     *
+     * @param result string[]
+     *
+     * @return string
+     */
     parseMessage(result) {
         return this.messageParser.parseGet(result);
     }

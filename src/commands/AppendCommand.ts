@@ -32,7 +32,11 @@ export class AppendCommand extends StoreCommand {
     const item = this.cache.get(cleanText(key));
 
     const newMessage = item.getMessage() + message;
-    this.message = cleanText(newMessage);
+    this.message = this.getMessageUpdated(message, item);
     this.updateBytes(this.message.length.toString());
+  }
+
+  getMessageUpdated(message: string, item) {
+    return item.getMessage() + cleanText(message);
   }
 }
