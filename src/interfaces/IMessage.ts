@@ -1,4 +1,4 @@
 export interface IMessage {
-  parseGet(data: any): string;
+  parseGet(data: any, useCasId?: boolean): string;
   parseSet(data?: any): string;
 }

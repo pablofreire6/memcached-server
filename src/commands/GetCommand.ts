@@ -1,12 +1,12 @@
 import { ICommand } from '../interfaces/ICommand';
 import { IMessage } from '../interfaces/IMessage';
 import { ICache } from '../interfaces/ICache';
-import { cleanText, encodeMessage } from '../lib/utils';
+import { cleanText } from '../lib/utils';
 
 export class GetCommand implements ICommand {
-  private messageParser: IMessage;
-  private line: string[];
-  private cache: ICache;
+  protected messageParser: IMessage;
+  protected line: string[];
+  protected cache: ICache;
 
   constructor(line: string[], messageParser: IMessage, cache: ICache) {
     this.line = line;
@@ -23,6 +23,17 @@ export class GetCommand implements ICommand {
     const [command, ...keys] = this.line;
     const result = this.findByKeys(keys);
 
+    return this.parseMessage(result);
+  }
+
+  /**
+   * Get parsed result for "get" command that will be sent to client
+   *
+   * @param result string[]
+   *
+   * @return string
+   */
+  parseMessage(result: string[]): string {
     return this.messageParser.parseGet(result);
   }
 
@@ -38,7 +49,6 @@ export class GetCommand implements ICommand {
       if (this.cache.has(keyText)) {
         const item = this.cache.get(keyText);
         if (item) {
-          // console.log('item', JSON.stringify(item));
           result.push(item);
         }
       }

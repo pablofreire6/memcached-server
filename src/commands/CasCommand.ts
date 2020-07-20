@@ -1,7 +1,7 @@
 import { IMessage } from '../interfaces/IMessage';
 import { ICache } from '../interfaces/ICache';
 import { StoreCommand } from './StoreCommand';
-import { encodeMessage, cleanText } from '../lib/utils';
+import { uniqueId, cleanText } from '../lib/utils';
 
 export class CasCommand extends StoreCommand {
   protected LINE_PARAMS_COUNT = 6;
@@ -11,7 +11,7 @@ export class CasCommand extends StoreCommand {
   }
 
   encodeCas() {
-    return encodeMessage(this.message);
+    return uniqueId();
   }
 
   validateLine() {
@@ -21,7 +21,11 @@ export class CasCommand extends StoreCommand {
 
     let item = this.cache.get(key);
 
-    if (item && cleanText(casId) !== encodeMessage(item.getMessage())) {
+    if (!item) {
+      throw new Error('NOT_FOUND\r\n');
+    }
+
+    if (item && parseInt(casId, 10) !== item.getCasId()) {
       throw new Error('EXISTS\r\n');
     }
   }

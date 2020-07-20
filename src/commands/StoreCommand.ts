@@ -2,7 +2,7 @@ import { IMessage } from '../interfaces/IMessage';
 import { ICommand } from '../interfaces/ICommand';
 import { ICache } from '../interfaces/ICache';
 import { NOTSTORED, CLIENTERROR, ERROR, CLIENTERRORBADFORMAT, CONTINUE } from '../lib/ErrorMessage';
-import { cleanText } from '../lib/utils';
+import { cleanText, uniqueId } from '../lib/utils';
 import { Item } from '../lib/Item';
 
 import { Logger } from '../lib/Logger';
@@ -111,6 +111,7 @@ export abstract class StoreCommand implements ICommand {
     item.setExpirationTime(parseInt(exptime, 10));
     item.setBytes(parseInt(cleanText(bytes), 10));
     item.setMessage(this.message);
+    item.setCasId(uniqueId());
 
     return item;
   }

@@ -9,13 +9,13 @@ class CasCommand extends StoreCommand_1.StoreCommand {
         this.LINE_PARAMS_COUNT = 6;
     }
     encodeCas() {
-        return utils_1.encodeMessage(this.message);
+        return utils_1.uniqueId();
     }
     validateLine() {
         super.validateLine();
         const [command, key, flags, exptime, bytes, casId] = this.line;
         let item = this.cache.get(key);
-        if (item && utils_1.cleanText(casId) !== utils_1.encodeMessage(item.getMessage())) {
+        if (item && parseInt(casId, 10) !== item.getCasId()) {
             throw new Error('EXISTS\r\n');
         }
     }

@@ -16,6 +16,9 @@ class GetCommand {
     run() {
         const [command, ...keys] = this.line;
         const result = this.findByKeys(keys);
+        return this.parseMessage(result);
+    }
+    parseMessage(result) {
         return this.messageParser.parseGet(result);
     }
     /**
@@ -30,7 +33,6 @@ class GetCommand {
             if (this.cache.has(keyText)) {
                 const item = this.cache.get(keyText);
                 if (item) {
-                    // console.log('item', JSON.stringify(item));
                     result.push(item);
                 }
             }

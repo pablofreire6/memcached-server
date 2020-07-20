@@ -2,14 +2,17 @@ import { IMessage } from '../interfaces/IMessage';
 import { IItem } from '../interfaces/IItem';
 
 export class Message implements IMessage {
-  parseGet(data: IItem[]) {
+  parseGet(data: IItem[], useCasId = false) {
     var result = '';
-    for (let i = 0; i < data.length; i++) {
-      // [<cas unique>]
-      const item = data[i];
-      const casId = item.getCasId() ? item.getCasId() : '';
-      result += `VALUE ${item.getKey()} ${item.getFlags()} ${item.getBytes()} ${casId}\r\n${item.getMessage()}\r\n`;
-    }
+
+    data.forEach((item) => {
+      result += `VALUE ${item.getKey()} ${item.getFlags()} ${item.getBytes()}`;
+
+      if (useCasId) {
+        result += ` ${item.getCasId()}`;
+      }
+      result += `\r\n${item.getMessage()}\r\n`;
+    });
 
     result += this.closeMessage();
     return result;

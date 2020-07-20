@@ -22,6 +22,11 @@ export class Cache implements ICache {
   get(key: string): IItem | null {
     const item: IItem = this.cache.get(key);
     const currentTime = new Date().getTime();
+
+    if (!item) {
+      return null;
+    }
+
     const expirationTime = item.getExpirationTime();
 
     if (expirationTime !== 0 && expirationTime < currentTime) {

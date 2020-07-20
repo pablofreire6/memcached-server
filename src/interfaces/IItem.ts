@@ -4,11 +4,11 @@ export interface IItem {
   getExpirationTime(): number;
   getBytes(): number;
   getMessage(): string;
-  getCasId(): string;
+  getCasId(): number;
   setKey(key: string): void;
   setFlags(flags: number): void;
   setExpirationTime(exptime: number): void;
   setBytes(bytes: number): void;
   setMessage(message: string): void;
-  setCasId(casId: string): void;
+  setCasId(casId: number): void;
 }

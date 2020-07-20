@@ -6,7 +6,7 @@ export class Item implements IItem {
   private expirationTime: number;
   private bytes: number;
   private message: string;
-  private casId: string;
+  private casId: number;
 
   constructor() {}
 
@@ -36,7 +36,7 @@ export class Item implements IItem {
     this.message = message;
   }
 
-  setCasId(casId: string) {
+  setCasId(casId: number) {
     this.casId = casId;
   }
 

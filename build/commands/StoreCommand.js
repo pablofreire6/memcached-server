@@ -87,6 +87,7 @@ class StoreCommand {
         item.setExpirationTime(parseInt(exptime, 10));
         item.setBytes(parseInt(utils_1.cleanText(bytes), 10));
         item.setMessage(this.message);
+        item.setCasId(utils_1.uniqueId());
         return item;
     }
 }
