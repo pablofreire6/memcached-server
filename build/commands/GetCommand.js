@@ -26,6 +26,7 @@ class GetCommand {
      * @return string
      */
     parseMessage(result) {
+        this.cache.getExpired();
         return this.messageParser.parseGet(result);
     }
     /**

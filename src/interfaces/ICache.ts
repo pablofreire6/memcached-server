@@ -6,4 +6,5 @@ export interface ICache {
   has(key: string): boolean;
   remove(key: string): void;
   update(key: string, item: object): void;
+  clearExpired(): void;
 }

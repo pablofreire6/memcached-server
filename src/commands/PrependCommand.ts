@@ -8,10 +8,6 @@ export class PrependCommand extends AppendCommand {
     super(line, messageParser, cache);
   }
 
-  isValidItem(key: string, item: object): boolean {
-    return this.cache.has(key);
-  }
-
   getMessageUpdated(message: string, item) {
     return cleanText(message) + item.getMessage();
   }

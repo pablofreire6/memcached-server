@@ -1,5 +1,6 @@
 import { GetCommand } from './GetCommand';
 import { Item } from '../lib/Item';
+import { Cache } from '../lib/Cache';
 
 export class GetsCommand extends GetCommand {
   /**

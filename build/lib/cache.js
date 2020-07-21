@@ -35,5 +35,15 @@ class Cache {
     update(key, item) {
         this.cache.set(key, item);
     }
+    getExpired() {
+        const currentTime = new Date().getTime();
+        let expired = [];
+        this.cache.forEach((item) => {
+            if (item.getExpirationTime() < currentTime) {
+                expired.push(item);
+            }
+        });
+        return expired;
+    }
 }
 exports.Cache = Cache;

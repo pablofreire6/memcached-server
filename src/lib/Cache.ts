@@ -47,4 +47,14 @@ export class Cache implements ICache {
   update(key: string, item: IItem) {
     this.cache.set(key, item);
   }
+
+  clearExpired(): void {
+    const currentTime = new Date().getTime();
+
+    this.cache.forEach((item) => {
+      if (item.getExpirationTime() < currentTime) {
+        this.remove(item.getKey());
+      }
+    });
+  }
 }

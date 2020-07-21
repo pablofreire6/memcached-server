@@ -27,7 +27,6 @@ class AppendCommand extends StoreCommand_1.StoreCommand {
     updateMessage(message) {
         const [command, key] = this.line;
         const item = this.cache.get(utils_1.cleanText(key));
-        const newMessage = item.getMessage() + message;
         this.message = this.getMessageUpdated(message, item);
         this.updateBytes(this.message.length.toString());
     }
