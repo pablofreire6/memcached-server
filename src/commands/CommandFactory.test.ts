@@ -6,6 +6,7 @@ import { ReplaceCommand } from './ReplaceCommand';
 import { PrependCommand } from './PrependCommand';
 import { CasCommand } from './CasCommand';
 import { AppendCommand } from './AppendCommand';
+import { GetsCommand } from './GetsCommand';
 
 function splitContent(text) {
   return text.split(' ');
@@ -94,5 +95,17 @@ describe('Create an instance of the command class requested', () => {
 
     // Assert
     expect(casCommand instanceof CasCommand).toBeTruthy();
+  });
+
+  it('should return an instance of GetsCommand class', () => {
+    // Arrange
+    const commandFactory = new CommandFactory();
+
+    // Act
+    const data = splitContent('cas apple 0 900 4\r\n');
+    const getsCommand = commandFactory.create(CommandType.gets, data);
+
+    // Assert
+    expect(getsCommand instanceof GetsCommand).toBeTruthy();
   });
 });

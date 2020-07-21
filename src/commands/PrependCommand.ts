@@ -8,6 +8,12 @@ export class PrependCommand extends AppendCommand {
     super(line, messageParser, cache);
   }
 
+  /**
+   * Add the new text to the end of existing text
+   *
+   * @param message string
+   * @param item Item
+   */
   getMessageUpdated(message: string, item) {
     return cleanText(message) + item.getMessage();
   }

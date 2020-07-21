@@ -11,10 +11,9 @@ export class CasCommand extends StoreCommand {
     super(line, messageParser, cache);
   }
 
-  encodeCas() {
-    return uniqueId();
-  }
-
+  /**
+   * Add validation for NOT_FOUND and EXISTS for Cas scenarios
+   */
   validateLine() {
     super.validateLine();
 
